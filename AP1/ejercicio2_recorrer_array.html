@@ -25,17 +25,27 @@
 // de las DevTools para seguir el valor de las variables.
 // ============================================================
 
+// Errores corregidos:
+// 1. Línea de la función sumar: tipo lógica. Se inicializaba "total" como cadena vacía
+//    y se recorría desde i = 1, por lo que concatenaba en lugar de sumar y se saltaba el
+//    primer elemento. Se corrigió a 0, con un bucle desde 0 hasta array.length - 1.
+// 2. Línea de la función maximo: tipo lógica. El valor inicial de "max" era 0, por lo que
+//    los números negativos no podían calcularse correctamente. Se corrigió tomando el
+//    primer elemento del array como valor inicial.
+// 3. Línea de la función media: tipo ejecución. Se llamaba a array.length() como si fuera
+//    una función, pero length es una propiedad. Se corrigió a array.length.
+
 function sumar(array) {
-  let total = "";
-  for (let i = 1; i <= array.length; i++) {
+  let total = 0;
+  for (let i = 0; i < array.length; i++) {
     total += array[i];
   }
   return total;
 }
 
 function maximo(array) {
-  let max = 0;
-  for (let i = 0; i < array.length; i++) {
+  let max = array[0];
+  for (let i = 1; i < array.length; i++) {
     if (array[i] > max) {
       max = array[i];
     }
@@ -44,7 +54,7 @@ function maximo(array) {
 }
 
 function media(array) {
-  return sumar(array) / array.length();
+  return sumar(array) / array.length;
 }
 
 let numeros = [4, -2, 9, 1, 3];
